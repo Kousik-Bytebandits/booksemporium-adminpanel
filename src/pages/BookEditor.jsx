@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FaSync } from "react-icons/fa";
+import { RiArrowLeftSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 const BookEditor = () => {
   const [books, setBooks] = useState([]);
@@ -71,7 +72,7 @@ const BookEditor = () => {
       <section className="mb-4 text-white">
         <div className="rounded w-full min-h-[80px] bg-topbar flex flex-col md:flex-row md:items-center px-6 py-4 gap-4">
           <h2 className="text-[24px] md:text-[30px] font-bold uppercase flex-1">
-            Product Editor
+            books Editor
           </h2>
           <div className="flex items-center gap-3">
             <p className="hidden md:inline text-[18px]">Data Refresh</p>
@@ -116,7 +117,7 @@ const BookEditor = () => {
               <img
                 src={book.image}
                 alt={book.title}
-                className="rounded-md mb-2 w-[128px] h-[198px] mx-auto object-cover"
+                className="rounded-md mb-2 w-[138px] h-[198px] mx-auto object-cover"
               />
               <p className="text-[15px] line-clamp-2 h-[40px] leading-tight font-semibold">
                 {book.title}
@@ -127,12 +128,12 @@ const BookEditor = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-2 mt-6">
+      <div className="flex justify-end  items-center gap-2 mt-6">
         <button
-          className="px-3 py-1 border rounded-md bg-white shadow-sm"
+          className="px-2 py-2 border rounded-md bg-white shadow-sm"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
         >
-          {"<"}
+          <RiArrowLeftSLine/>
         </button>
         {[currentPage, currentPage + 1, currentPage + 2].map((num) => (
           <button

@@ -3,7 +3,8 @@ import Sidebar from "./components/Sidebar";
 import BookUploads from "./pages/BookUploads";
 import BookEditor from "./pages/BookEditor";
 import BookEditorForm from "./pages/BookEditorForm";
-
+import Transactions from "./pages/Transactions";
+import CustomersOrders from "./pages/Order";
 function App() {
   return (
     <Router>
@@ -19,7 +20,8 @@ function App() {
             <Route path="/editor" element={<BookEditor />} />
             <Route path="/" element={<BookUploads />} />
             <Route path="/editor/:id" element={<BookEditorForm/>}/>
-            
+            <Route path="/transactions" element={<Transactions/>}/>
+            <Route path="/orders" element={<CustomersOrders/>}/>
            </Routes>
       
  </div>

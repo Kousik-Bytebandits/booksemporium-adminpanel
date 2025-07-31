@@ -149,12 +149,12 @@ console.log("Update result:", result);
   }
 
   return (
-    <div className="p-6 bg-background min-h-screen text-[#3f2b1d] font-sans">
+    <div className="p-6 bg-background min-h-screen text-[#3f2b1d] font-sans overflow-y-auto">
       <ToastContainer />
-      <div className="max-w-full mx-auto">
+      <div className="w-full ">
         <section className="mb-4 text-white">
           <div className="rounded w-full min-h-[80px] bg-topbar flex flex-col md:flex-row md:items-center px-6 py-4 gap-4">
-            <h2 className="text-[24px] md:text-[30px] font-bold uppercase flex-1">Product Editor</h2>
+            <h2 className="text-[24px] md:text-[30px] font-bold uppercase flex-1 font-archivo">books Editor</h2>
             <div className="flex items-center gap-3">
               <p className="hidden md:inline text-[18px]">Data Refresh</p>
               <FaSync className="hidden md:inline cursor-pointer text-lg" title="Sync" />
@@ -165,14 +165,14 @@ console.log("Update result:", result);
           </div>
         </section>
 
-        <div className="grid md:grid-cols-12 gap-4 p-6">
-          <div className="md:col-span-2 bg-white flex justify-center items-center border-2 border-dashed border-gray-400 rounded-lg w-[213px] h-96">
-            <img src={book.image_url || "/images/upload.png"} alt="upload" className="h-20 w-20 object-contain" />
+        <div className="grid md:grid-cols-12 gap-4 py-6">
+          <div className="md:col-span-2 bg-white flex justify-center items-center border-2 border-dashed border-gray-400 rounded-lg xxxl:w-[200px] xxxl:h-90 ">
+            <img src={book.image_url || "/images/upload.png"} alt="upload" className=" object-contain w-full h-full" />
           </div>
 
-          <div className="md:col-span-9 text-[16px] grid grid-cols-1 lg:grid-cols-7 gap-4 w-full">
+          <div className=" xxxl:col-span-9 hd:col-span-10 xxxl:text-[16px] hd:text-[14px] grid grid-cols-1 lg:grid-cols-7 gap-4 w-full">
             {/* Row 1 */}
-            <div className="flex flex-col col-span-2">
+            <div className="flex flex-col col-span-2 ">
               <label className="font-semibold mb-1">EAN</label>
               <input className="p-2 border border-gray-400 rounded" value={book.ean} readOnly />
             </div>

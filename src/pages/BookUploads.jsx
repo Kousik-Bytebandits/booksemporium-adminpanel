@@ -39,9 +39,9 @@ const BookUploads = () => {
   }, []);
 
   const inputStyle =
-    "w-full border border-[#AEAEAE] p-2 rounded-md xxxl:text-[20px] laptop:text-[16px] hd:text-[18px]";
+    "w-full border border-[#AEAEAE] p-2 rounded-md xxxl:text-[20px] laptop:text-[14px] hd:text-[16px]";
   const labelStyle =
-    "xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-topbar font-medium mb-1 block";
+    "xxxl:text-[20px] laptop:text-[14px] hd:text-[16px] text-topbar font-medium mb-1 block";
 
   // ✅ Submit handler
   const handleUpload = async () => {
@@ -92,7 +92,7 @@ const BookUploads = () => {
       {/* Topbar */}
       <section className="mb-4 text-white p-6">
         <div className="rounded w-full min-h-[80px] bg-topbar flex flex-col md:flex-row md:items-center px-6 py-4 gap-4">
-          <h2 className="text-[24px] md:text-[30px] font-bold uppercase flex-1">Product Editor</h2>
+          <h2 className="text-[24px] md:text-[30px] font-bold uppercase flex-1 font-archivo">books upload</h2>
           <div className="flex items-center gap-4">
             <p className="hidden md:inline text-[18px]">Data Refresh</p>
             <FaSync className="hidden md:inline cursor-pointer text-lg" title="Sync" />
@@ -106,11 +106,11 @@ const BookUploads = () => {
       {/* Form Layout */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Basic Details */}
-        <div className="w-[90%] mx-auto h-[60vh] scrollbar-hide bg-white p-6 rounded-md shadow-around-soft overflow-y-auto">
+        <div className="w-[90%] mx-auto h-[65vh] scrollbar-hide bg-white p-6 rounded-md shadow-around-soft overflow-y-auto">
           <h3 className="font-semibold xxxl:text-[24px] laptop:text-[18px] hd:text-[20px] text-topbar mb-4">
             Basic Details:
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3 ">
             <div>
               <label className={labelStyle}>EAN</label>
               <input className={inputStyle} value={ean} onChange={(e) => setEan(e.target.value)} />
@@ -142,13 +142,13 @@ const BookUploads = () => {
                 <option value="medium crate">Medium Crate</option>
                 <option value="large crate">Large Crate</option>
               </select>
-              <MdArrowDropDown className="absolute right-3 top-[38px] text-xl pointer-events-none text-gray-600" />
+              <MdArrowDropDown className="absolute right-3 top-[38px] text-2xl pointer-events-none text-gray-600" />
             </div>
           </div>
         </div>
 
         {/* Home Page Settings */}
-        <div className="w-[90%] mx-auto scrollbar-hide h-[60vh] bg-white p-6 rounded-md shadow-around-soft overflow-y-auto">
+        <div className="w-[90%] mx-auto scrollbar-hide h-[65vh] bg-white p-6 rounded-md shadow-around-soft overflow-y-auto">
           <h3 className="font-semibold text-topbar mb-4 xxxl:text-[24px] laptop:text-[18px] hd:text-[20px]">
             Home Page
           </h3>
