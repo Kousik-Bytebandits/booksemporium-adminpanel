@@ -9,7 +9,6 @@ const BookUploads = () => {
   const [price, setPrice] = useState(199.99);
   const [discount, setDiscount] = useState(20);
   const [stockQuantity, setStockQuantity] = useState(25);
-  const [crateType, setCrateType] = useState("small crate");
   const [isTrending, setIsTrending] = useState(true);
   const [isBestsellers, setIsBestsellers] = useState(true);
   const [isNewArrivals, setIsNewArrivals] = useState(true);
@@ -53,7 +52,6 @@ const BookUploads = () => {
       price: parseFloat(price),
       discount: parseFloat(discount),
       stock_quantity: parseInt(stockQuantity),
-      crate_type: crateType,
       is_trending: isTrending,
       is_bestsellers: isBestsellers,
       is_newarrivals: isNewArrivals,
@@ -131,19 +129,7 @@ const BookUploads = () => {
                 onChange={(e) => setStockQuantity(e.target.value)}
               />
             </div>
-            <div className="relative">
-              <label className={labelStyle}>Crate Size</label>
-              <select
-                className={`${inputStyle} appearance-none pr-8`}
-                value={crateType}
-                onChange={(e) => setCrateType(e.target.value)}
-              >
-                <option value="small crate">Small Crate</option>
-                <option value="medium crate">Medium Crate</option>
-                <option value="large crate">Large Crate</option>
-              </select>
-              <MdArrowDropDown className="absolute right-3 top-[38px] text-2xl pointer-events-none text-gray-600" />
-            </div>
+           
           </div>
         </div>
 

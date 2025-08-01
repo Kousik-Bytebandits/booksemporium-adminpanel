@@ -51,7 +51,7 @@ export default function BookEditor() {
           price: data.price || "",
           oldPrice: data.oldprice || "",
           discount: data.discount || "",
-          crateType: data.crate_type || "Medium Crate",
+   
           quantity: data.stock_quantity || 0,
           categories: data.categories || "",
           description: data.description || "",
@@ -95,7 +95,7 @@ export default function BookEditor() {
   oldprice: book.oldPrice,
   discount: book.discount,
   stock_quantity: book.quantity,
-  crate_type: book.crateType,
+ 
   categories: book.categories.split(",").map((c) => c.trim()),
   is_trending: book.trending ? 1 : 0,
   is_bestsellers: book.bestSeller ? 1 : 0,
@@ -253,18 +253,7 @@ console.log("Update result:", result);
                 onChange={(e) => setBook({ ...book, discount: e.target.value })}
               />
             </div>
-            <div className="flex flex-col">
-              <label className="font-semibold mb-1">Crate Type</label>
-              <select
-                className="p-2 border border-gray-400 rounded"
-                value={book.crateType}
-                onChange={(e) => setBook({ ...book, crateType: e.target.value })}
-              >
-                <option value="small crate">Small Crate</option>
-  <option value="medium crate">Medium Crate</option>
-  <option value="large crate">Large Crate</option>
-              </select>
-            </div>
+           
             <div className="flex flex-col">
               <label className="font-semibold mb-1">Quantity</label>
               <input
@@ -273,7 +262,7 @@ console.log("Update result:", result);
                 onChange={(e) => setBook({ ...book, quantity: e.target.value })}
               />
             </div>
-            <div className="flex flex-col col-span-2">
+            <div className="flex flex-col col-span-3">
               <label className="font-semibold mb-1">Categories</label>
               <input
                 className="p-2 border border-gray-400 rounded"
