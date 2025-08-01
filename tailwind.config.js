@@ -22,10 +22,13 @@ export default {
           },
       colors: {
         primary: "#ff7f50",
+        desktopBg: '#F2F2F2',
         secondary: "#4b5563",
         sidebar:"#FFC490",
         topbar:"#3A261A",
         background:"#f2e3d6",
+         inputBox: '#FFEBDF',
+         loginBtn: '#F6630A',
 
       },
       boxShadow: {

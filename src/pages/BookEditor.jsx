@@ -35,9 +35,11 @@ const BookEditor = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await fetch(
-          `https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book/products?page=1&limit=5`
-        );
+       const limit = 12;
+const res = await fetch(
+  `https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book/products?page=${currentPage}&limit=${limit}`
+);
+
         const result = await res.json();
         const bookList = result.data || [];
          
@@ -104,56 +106,67 @@ const BookEditor = () => {
       {/* Book Grid */}
       <div className="grid grid-cols-2 hd:grid-cols-6 laptop:grid-cols-4 xxxl:grid-cols-6 gap-4">
         {books
-          .filter((book) =>
-            book.title.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((book, index) => (
-            <div
-            key={index}
-  onClick={() => navigate(`/editor/${book.book_id}`) }
-  
-              className="bg-white rounded-lg w-[164px] h-[275px] shadow-md p-2 hover:shadow-lg cursor-pointer transition duration-200"
-            >
-              <img
-                src={book.image}
-                alt={book.title}
-                className="rounded-md mb-2 w-[138px] h-[198px] mx-auto object-cover"
-              />
-              <p className="text-[15px] line-clamp-2 h-[40px] leading-tight font-semibold">
-                {book.title}
-              </p>
-              <p className="text-[12px] text-gray-500">By: {book.author}</p>
-            </div>
-          ))}
+  .filter((book) =>
+    searchTerm
+      ? book.title.toLowerCase().includes(searchTerm.toLowerCase())
+      : true
+  )
+  .map((book, index) => (
+    <div
+      key={index}
+      onClick={() => navigate(`/editor/${book.book_id}`)}
+      className="bg-white rounded-lg w-[164px] h-[275px] shadow-md p-2 hover:shadow-lg cursor-pointer transition duration-200"
+    >
+      <img
+        src={book.image}
+        alt={book.title}
+        className="rounded-md mb-2 w-[138px] h-[198px] mx-auto object-cover"
+      />
+      <p className="text-[15px] line-clamp-2 h-[40px] leading-tight font-semibold">
+        {book.title}
+      </p>
+      <p className="text-[12px] text-gray-500">By: {book.author}</p>
+    </div>
+  ))}
+
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-end  items-center gap-2 mt-6">
-        <button
-          className="px-2 py-2 border rounded-md bg-white shadow-sm"
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-        >
-          <RiArrowLeftSLine/>
-        </button>
-        {[currentPage, currentPage + 1, currentPage + 2].map((num) => (
-          <button
-            key={num}
-            className={`px-3 py-1 border rounded-md shadow-sm ${
-              currentPage === num ? "bg-[#3C1E0D] text-white" : "bg-white"
-            }`}
-            onClick={() => setCurrentPage(num)}
-          >
-            {num}
-          </button>
-        ))}
-        <span className="px-3 py-1">...</span>
-        <button
-          className="px-3 py-1 border rounded-md bg-white shadow-sm"
-          onClick={() => setCurrentPage(32)}
-        >
-          32
-        </button>
-      </div>
+     {/* Pagination */}
+<div className="flex justify-end items-center gap-2 mt-6">
+  <button
+    className="px-2 py-2 border rounded-md bg-white shadow-sm disabled:opacity-50"
+    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+    disabled={currentPage === 1}
+  >
+    <RiArrowLeftSLine />
+  </button>
+
+  {[...Array(3)].map((_, idx) => {
+    const pageNum = currentPage + idx;
+    return (
+      <button
+        key={pageNum}
+        className={`px-3 py-1 border rounded-md shadow-sm ${
+          currentPage === pageNum ? "bg-[#3C1E0D] text-white" : "bg-white"
+        }`}
+        onClick={() => setCurrentPage(pageNum)}
+      >
+        {pageNum}
+      </button>
+    );
+  })}
+
+  <span className="px-2">...</span>
+
+  <button
+    className="px-3 py-1 border rounded-md bg-white shadow-sm"
+    onClick={() => setCurrentPage(32)}
+  >
+    32
+  </button>
+</div>
+
     </div>
   );
 };
