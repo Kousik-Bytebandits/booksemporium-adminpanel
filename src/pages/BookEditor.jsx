@@ -36,7 +36,7 @@ const BookEditor = () => {
     const fetchBooks = async () => {
       try {
         const res = await fetch(
-          `https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book/products/category/Fiction?page=${currentPage}&limit=5`
+          `https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book/products?page=1&limit=5`
         );
         const result = await res.json();
         const bookList = result.data || [];
