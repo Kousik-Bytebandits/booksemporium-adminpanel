@@ -145,12 +145,12 @@ const downloadExcelFile = async (url, filename) => {
   className="bg-[#FFAC7B] text-black font-semibold px-4 py-2 rounded shadow hover:bg-orange-600"
   onClick={() =>
     downloadExcelFile(
-      "https://booksemporium.in/Microservices/Prod/03_admin_Panel/transactions/export-orders",
+      "https://booksemporium.in/Microservices/Prod/03_admin_Panel/transactions/export-books",
       "transactions.xlsx"
     )
   }
 >
-  Download All
+  Download All Books
 </button>
 
         </div>
