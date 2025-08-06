@@ -16,7 +16,7 @@ const BookUploads = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [isCrate, setIsCrate] = useState(true);
   useEffect(() => {
     const updateDate = () => {
       const now = new Date();
@@ -52,6 +52,7 @@ const BookUploads = () => {
       price: parseFloat(price),
       discount: parseFloat(discount),
       stock_quantity: parseInt(stockQuantity),
+      is_crate: isCrate, 
       is_trending: isTrending,
       is_bestsellers: isBestsellers,
       is_newarrivals: isNewArrivals,
@@ -59,20 +60,22 @@ const BookUploads = () => {
     };
 
     try {
-      const response = await fetch(
-        "https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+    const response = await fetch("https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
+  
+});
+console.log("Sending payload:", payload);
 
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
+if (!response.ok) {
+  const errorText = await response.text();  // log backend message
+  console.error("Upload error response:", errorText); // 👈 log reason
+  throw new Error("Upload failed");
+}
+
 
       const data = await response.json();
       console.log(data);
@@ -129,7 +132,20 @@ const BookUploads = () => {
                 onChange={(e) => setStockQuantity(e.target.value)}
               />
             </div>
-           
+           <div className="relative">
+  <label className={labelStyle}>Add to Books Crate</label>
+  <div className="relative">
+    <select
+      className="appearance-none w-full px-4 py-2 border rounded-md border-[#AEAEAE] text-topbar xxxl:text-[20px] laptop:text-[14px] hd:text-[16px]"
+      value={isCrate}
+      onChange={(e) => setIsCrate(e.target.value === "true")}
+    >
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <MdArrowDropDown className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-xl text-gray-600" />
+  </div>
+</div>
           </div>
         </div>
 

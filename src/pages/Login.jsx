@@ -17,11 +17,11 @@ export default function Login({ onLogin }) {
     const validPassword = "Books@1234";
 
     if (email === validEmail && password === validPassword) {
-      sessionStorage.setItem("isLoggedIn", "true"); // ✅ session login
-      onLogin(); // 🔁 update App state
+      sessionStorage.setItem("isLoggedIn", "true");
+      onLogin(); 
 
       toast.success("Login successful!");
-      setTimeout(() => navigate('/'), 1000); // 👈 Redirect to home after success
+      setTimeout(() => navigate('/'), 1000); 
     } else {
       toast.error("Invalid email or password");
     }

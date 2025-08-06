@@ -51,7 +51,7 @@ export default function BookEditor() {
           price: data.price || "",
           oldPrice: data.oldprice || "",
           discount: data.discount || "",
-   
+          is_crate: data.is_crate || false,
           quantity: data.stock_quantity || 0,
           categories: data.categories || "",
           description: data.description || "",
@@ -95,7 +95,7 @@ export default function BookEditor() {
   oldprice: book.oldPrice,
   discount: book.discount,
   stock_quantity: book.quantity,
- 
+  is_crate: book.is_crate ? 1 : 0,
   categories: book.categories.split(",").map((c) => c.trim()),
   is_trending: book.trending ? 1 : 0,
   is_bestsellers: book.bestSeller ? 1 : 0,
@@ -284,6 +284,14 @@ console.log("Update result:", result);
             />
           </div>
           <div className="md:col-span-3 flex flex-col gap-4 justify-start mt-6">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={book.is_crate}
+                onChange={(e) => setBook({ ...book, is_crate: e.target.checked })}
+              />{" "}
+              Add to Crate
+            </label>
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
