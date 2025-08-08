@@ -51,7 +51,7 @@ export default function Login({ onLogin }) {
               <p>emporium</p>
             </div>
           </div>
-          <h2 className="text-[36px] mt-15 text-[#2B452C] font-semibold">Welcome Back!</h2>
+          <h2 className="text-[36px] xxxl:mt-[18%] mt-15 text-[#2B452C] font-semibold">Welcome Back!</h2>
           <p className="text-[14px] mb-10 font-opensans">Login to your account</p>
 
           <form
@@ -59,7 +59,7 @@ export default function Login({ onLogin }) {
               e.preventDefault();
               handleLogin();
             }}
-            className="space-y-5 px-24"
+            className="space-y-5 xxxl:px-36 px-24"
           >
             <div className="flex items-center bg-inputBox px-4 py-3 rounded-lg">
               <FaUser className="mr-3 text-[#624534]" />

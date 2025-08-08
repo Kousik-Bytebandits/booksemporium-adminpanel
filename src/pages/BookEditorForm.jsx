@@ -60,6 +60,7 @@ export default function BookEditor() {
           internationalBestSeller: !!data.is_international_bestsellers,
           newArrivals: !!data.is_newarrivals,
           image_url: data.image_url || "",
+           books_condition: data.books_condition || "",
         });
         console.log("data",data);
       } catch (error) {
@@ -101,6 +102,7 @@ export default function BookEditor() {
   is_bestsellers: book.bestSeller ? 1 : 0,
   is_newarrivals: book.newArrivals ? 1 : 0,
   is_international_bestsellers: book.internationalBestSeller ? 1 : 0,
+  books_condition: book.books_condition,
 }),
 
         }
@@ -262,7 +264,7 @@ console.log("Update result:", result);
                 onChange={(e) => setBook({ ...book, quantity: e.target.value })}
               />
             </div>
-            <div className="flex flex-col col-span-3">
+            <div className="flex flex-col col-span-2">
               <label className="font-semibold mb-1">Categories</label>
               <input
                 className="p-2 border border-gray-400 rounded"
@@ -270,6 +272,21 @@ console.log("Update result:", result);
                 onChange={(e) => setBook({ ...book, categories: e.target.value })}
               />
             </div>
+
+             <div className="flex flex-col col-span-1">
+  <label className="font-semibold mb-1">Book Condition</label>
+  <select
+    className="p-2 border border-gray-400 rounded"
+    value={book.books_condition}
+    onChange={(e) => setBook({ ...book, books_condition: e.target.value })}
+  >
+   
+    <option value="new_book">New</option>
+    <option value="used_good">Used Good</option>
+    <option value="used_old">Used Old</option>
+  </select>
+</div>
+
           </div>
         </div>
 

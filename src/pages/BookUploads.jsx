@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaSync } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const BookUploads = () => {
   const [currentDate, setCurrentDate] = useState("");
@@ -13,9 +15,10 @@ const BookUploads = () => {
   const [isBestsellers, setIsBestsellers] = useState(true);
   const [isNewArrivals, setIsNewArrivals] = useState(true);
   const [isInternationalBestsellers, setIsInternationalBestsellers] = useState(true);
-
+  const [bookCondition, setBookCondition] = useState("");
+ 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
+  
   const [isCrate, setIsCrate] = useState(true);
   useEffect(() => {
     const updateDate = () => {
@@ -42,22 +45,29 @@ const BookUploads = () => {
   const labelStyle =
     "xxxl:text-[20px] laptop:text-[14px] hd:text-[16px] text-topbar font-medium mb-1 block";
 
-  // ✅ Submit handler
+  
   const handleUpload = async () => {
     setIsSubmitting(true);
-    setMessage("");
+if (!bookCondition.trim()) {
+  toast.error("Please select a book condition");
+  setIsSubmitting(false);
+  return;
+}
 
-    const payload = {
-      ean,
-      price: parseFloat(price),
-      discount: parseFloat(discount),
-      stock_quantity: parseInt(stockQuantity),
-      is_crate: isCrate, 
-      is_trending: isTrending,
-      is_bestsellers: isBestsellers,
-      is_newarrivals: isNewArrivals,
-      is_international_bestsellers: isInternationalBestsellers,
-    };
+const payload = {
+  ean,
+  price: parseFloat(price),
+  discount: parseFloat(discount),
+  stock_quantity: parseInt(stockQuantity),
+  is_trending: isTrending,
+  is_bestsellers: isBestsellers,
+  is_newarrivals: isNewArrivals,
+  is_international_bestsellers: isInternationalBestsellers,
+  is_crate: isCrate,
+  books_condition: bookCondition
+};
+
+
 
     try {
     const response = await fetch("https://booksemporium.in/Microservices/Prod/03_admin_Panel/add-book", {
@@ -69,20 +79,16 @@ const BookUploads = () => {
   
 });
 console.log("Sending payload:", payload);
-
-if (!response.ok) {
-  const errorText = await response.text();  // log backend message
-  console.error("Upload error response:", errorText); // 👈 log reason
-  throw new Error("Upload failed");
-}
-
-
-      const data = await response.json();
-      console.log(data);
-      setMessage("Book uploaded successfully!");
-    } catch (err) {
-      setMessage("Error uploading book.");
-      console.error(err);
+  const data = await response.json();
+      console.log("Response data:", data);
+ if (response.ok) {
+        toast.success("Book uploaded successfully!");
+      } else {
+        toast.error(data.message || "Upload failed");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -154,27 +160,50 @@ if (!response.ok) {
           <h3 className="font-semibold text-topbar mb-4 xxxl:text-[24px] laptop:text-[18px] hd:text-[20px]">
             Home Page
           </h3>
-          <div className="space-y-4">
-            {[
-              { label: "Trending", state: isTrending, setState: setIsTrending },
-              { label: "Best Seller", state: isBestsellers, setState: setIsBestsellers },
-              { label: "International Best Seller", state: isInternationalBestsellers, setState: setIsInternationalBestsellers },
-              { label: "New Arrival", state: isNewArrivals, setState: setIsNewArrivals },
-            ].map(({ label, state, setState }, index) => (
-              <div className="relative" key={index}>
-                <label className={labelStyle}>{label}</label>
-                <select
-                  className={`${inputStyle} appearance-none pr-8`}
-                  value={state ? "true" : "false"}
-                  onChange={(e) => setState(e.target.value === "true")}
-                >
-                  <option value="true">True</option>
-                  <option value="false">False</option>
-                </select>
-                <MdArrowDropDown className="absolute right-3 top-[38px] text-xl pointer-events-none text-gray-600" />
-              </div>
-            ))}
-          </div>
+       <div className="space-y-3">
+  {[
+    { label: "Trending", state: isTrending, setState: setIsTrending, type: "boolean" },
+    { label: "Best Seller", state: isBestsellers, setState: setIsBestsellers, type: "boolean" },
+    { label: "International Best Seller", state: isInternationalBestsellers, setState: setIsInternationalBestsellers, type: "boolean" },
+    { label: "New Arrival", state: isNewArrivals, setState: setIsNewArrivals, type: "boolean" },
+    { label: "Book Condition", state: bookCondition, setState: setBookCondition, type: "single" },
+  ].map(({ label, state, setState, type }, index) => (
+    <div className="relative" key={index}>
+      <label className={labelStyle}>{label}</label>
+
+      {type === "boolean" ? (
+        <select
+          className={`${inputStyle} appearance-none pr-8`}
+          value={state ? "true" : "false"}
+          onChange={(e) => setState(e.target.value === "true")}
+        >
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      ) : (
+       <select
+  className={`${inputStyle} appearance-none pr-8`}
+  value={bookCondition}
+  onChange={(e) => setBookCondition(e.target.value)}
+>
+  <option value="">Select condition</option>
+  <option value="new_book">New</option>
+  <option value="used_good">Used Good</option>
+  <option value="used_old">Used Old</option>
+</select>
+
+
+      )}
+
+      {/* Dropdown arrow */}
+      <MdArrowDropDown className="absolute right-3 top-[38px] text-xl pointer-events-none text-gray-600" />
+    </div>
+  ))}
+</div>
+
+
+
+
         </div>
       </div>
 
@@ -190,9 +219,7 @@ if (!response.ok) {
         </button>
       </div>
 
-      {message && (
-        <div className="text-center mt-4 text-sm text-green-600 font-semibold">{message}</div>
-      )}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
